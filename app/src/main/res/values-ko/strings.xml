@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">안드로이드랩</string>
+    <string name="app_name">랩4</string>
     <string name="hello_message">여러분 안녕하세요!</string>
     <string name="ButtonText">저는 버튼입니다</string>
     <string name="LoginText">로그인</string>
