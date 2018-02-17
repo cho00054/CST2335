@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidLabs</string>
+    <string name="app_name">Lab4</string>
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\'m a button</string>
     <string name="LoginText">Log in</string>
@@ -13,6 +13,7 @@
     <string name="ok">YES</string>
     <string name="cancel">NO</string>
     <string name="response">My information to share</string>
-
+    <string name="ButtonChat">Start Chat</string>
+    <string name="send">Send</string>
 
 </resources>

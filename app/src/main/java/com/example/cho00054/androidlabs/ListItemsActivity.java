@@ -18,7 +18,6 @@ import android.widget.Toast;
 public class ListItemsActivity extends Activity {
     protected static final String ACTIVITY_NAME = "ListItemsActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +65,7 @@ public class ListItemsActivity extends Activity {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent resultIntent = new Intent(  );
-                                resultIntent.putExtra("Response", "my information to share");
-                                //resultIntent.putExtra("Response", R.string.response); ????
+                                resultIntent.putExtra("Response",  getResources().getString(R.string.response));
                                 setResult(Activity.RESULT_OK, resultIntent);
                                 finish();
                             }
@@ -77,7 +75,6 @@ public class ListItemsActivity extends Activity {
                             }
                         })
                         .show();
-
             }
         });
     }
