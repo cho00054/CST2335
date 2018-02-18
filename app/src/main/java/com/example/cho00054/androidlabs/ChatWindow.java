@@ -21,9 +21,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ChatWindow extends Activity {
-    private ArrayList<String> list;
+    private ArrayList<String> list = new ArrayList<>();
     private Context ctx;
     private SQLiteDatabase db;
+    protected static final String ACTIVITY_NAME = "ChatWindow";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,42 @@ public class ChatWindow extends Activity {
 
         ListView listView = findViewById(R.id.chatView);
         Button sendButton = findViewById(R.id.sendButton);
-        list = new ArrayList<>();
-        ChatAdapter messageAdapter = new ChatAdapter( ctx );
-        listView.setAdapter(messageAdapter);
 
         ChatDatabaseHelper dbHelper = new ChatDatabaseHelper(ctx);
         db = dbHelper.getWritableDatabase();
+
+        Cursor results = db.query(false, ChatDatabaseHelper.TABLE_NAME,
+                new String[] { ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
+                ChatDatabaseHelper.KEY_MESSAGE + " not null", null,
+                null, null, null, null);
+
+        results.moveToFirst();
+
+        while(!results.isAfterLast()){
+            String resultMessage = results.getString(results.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE));
+            list.add(resultMessage);
+            Log.i(ACTIVITY_NAME, "SQL MESSAGE:" + resultMessage);
+            results.moveToNext();
+        }
+        results.moveToFirst();
+
+        Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + results.getColumnCount());
+        for(int i = 0; i < results.getColumnCount(); i++) {
+            Log.i(ACTIVITY_NAME, "Cursor’s  column name =" + results.getColumnName(i));
+        }
+
+/*        try {
+            SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(ctx, R.layout.activity_chat_window, results,
+                            new String[]{ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
+                            new int[]{R.id.chatView}, 0);
+
+            listView.setAdapter(listAdapter); //populate the list with results\}
+        }catch(Exception e){
+            Log.e("Crash!", e.getMessage());
+        }*/
+
+        ChatAdapter messageAdapter = new ChatAdapter(ctx);
+        listView.setAdapter(messageAdapter);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,44 +77,13 @@ public class ChatWindow extends Activity {
                 EditText textInput = findViewById(R.id.chatViewText);
                 list.add(textInput.getText().toString());
                 messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-                textInput.setText("");
 
                 ContentValues newData = new ContentValues();
                 newData.put(ChatDatabaseHelper.KEY_MESSAGE, textInput.getText().toString());
 
                 db.insert(ChatDatabaseHelper.TABLE_NAME, null, newData);
-
-                Cursor results = db.query(false, ChatDatabaseHelper.TABLE_NAME,
-                        new String[] {ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
-                        null, null,
-                        null, null, null, null);
-
-                results.moveToFirst();
-                while(!results.isAfterLast()){
-                    String resultMessage = results.getString(results.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE));
-                    Log.i("ChatWindow", "SQL MESSAGE:" + resultMessage);
-                    results.moveToNext();
-                }
-
-                Log.i("ChatWindow", "Cursor’s  column count =" + results.getColumnCount());
-                for(int i = 0; i < results.getColumnCount(); i++) {
-                    Log.i("ChatWindow", "Cursor’s  column name =" + results.getColumnName(i));
-                }
-
-                results.moveToFirst();  //reset the cursor
-
-                try {
-                    SimpleCursorAdapter listAdapter =
-                            new SimpleCursorAdapter(ctx, R.layout.activity_chat_window, results,
-                                    new String[]{ChatDatabaseHelper.KEY_MESSAGE},
-                                    new int[]{R.id.chatView}, 0);
-
-                    listView.setAdapter(listAdapter); //populate the list with results\}
-                }catch(Exception e)
-                {
-                    Log.e("Crash!", e.getMessage());
-                }
-            }
+                textInput.setText("");
+          }
         });
     }
 

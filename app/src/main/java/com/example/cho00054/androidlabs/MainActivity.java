@@ -25,8 +25,8 @@ public class MainActivity extends Activity {
           }
         });
 
-        Button button2 = findViewById(R.id.buttonChat);
-        button2.setOnClickListener(new View.OnClickListener() {
+        Button buttonChat = findViewById(R.id.buttonChat);
+        buttonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(ACTIVITY_NAME, "User clicked Start Chat");
