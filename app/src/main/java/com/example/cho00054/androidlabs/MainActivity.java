@@ -24,7 +24,6 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, 50);
           }
         });
-
     }
 
     @Override

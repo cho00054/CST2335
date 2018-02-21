@@ -66,8 +66,7 @@ public class ListItemsActivity extends Activity {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent resultIntent = new Intent(  );
-                                resultIntent.putExtra("Response", "my information to share");
-                                //resultIntent.putExtra("Response", R.string.response); ????
+                                resultIntent.putExtra("Response", getString(R.string.response));
                                 setResult(Activity.RESULT_OK, resultIntent);
                                 finish();
                             }
