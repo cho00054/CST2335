@@ -21,7 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ChatWindow extends Activity {
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> list;
     private Context ctx;
     private SQLiteDatabase db;
     protected static final String ACTIVITY_NAME = "ChatWindow";
@@ -34,6 +34,7 @@ public class ChatWindow extends Activity {
 
         ListView listView = findViewById(R.id.chatView);
         Button sendButton = findViewById(R.id.sendButton);
+        list = new ArrayList<>();
 
         ChatDatabaseHelper dbHelper = new ChatDatabaseHelper(ctx);
         db = dbHelper.getWritableDatabase();
@@ -58,30 +59,22 @@ public class ChatWindow extends Activity {
             Log.i(ACTIVITY_NAME, "Cursor’s  column name =" + results.getColumnName(i));
         }
 
-/*        try {
-            SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(ctx, R.layout.activity_chat_window, results,
-                            new String[]{ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
-                            new int[]{R.id.chatView}, 0);
-
-            listView.setAdapter(listAdapter); //populate the list with results\}
-        }catch(Exception e){
-            Log.e("Crash!", e.getMessage());
-        }*/
-
         ChatAdapter messageAdapter = new ChatAdapter(ctx);
         listView.setAdapter(messageAdapter);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // add new chat String to ArrayList<String>
                 EditText textInput = findViewById(R.id.chatViewText);
                 list.add(textInput.getText().toString());
                 messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
 
+                // insert new chat String to db
                 ContentValues newData = new ContentValues();
                 newData.put(ChatDatabaseHelper.KEY_MESSAGE, textInput.getText().toString());
-
                 db.insert(ChatDatabaseHelper.TABLE_NAME, null, newData);
+
                 textInput.setText("");
           }
         });
