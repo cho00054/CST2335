@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
         EditText editText = findViewById(R.id.loginEditText);
         editText.setText(defaultEmail);
 
-        Button button2 = findViewById(R.id.button2);
+        Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
