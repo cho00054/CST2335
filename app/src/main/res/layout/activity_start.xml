@@ -30,4 +30,11 @@
         android:text="@string/ButtonChat"
         app:layout_constraintTop_toBottomOf="@id/button" />
 
+    <Button
+        android:id="@+id/buttonWeatherForecast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ButtonWeatherForecast"
+        app:layout_constraintTop_toBottomOf="@id/buttonChat" />
+
 </android.support.constraint.ConstraintLayout>
