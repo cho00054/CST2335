@@ -19,5 +19,6 @@
     <string name="currentTemperature">Current Temperature</string>
     <string name="minTemperature">Min Temperature</string>
     <string name="maxTemperature">Max Temperature</string>
+    <string name="windSpeed">Wind Speed</string>
 
 </resources>

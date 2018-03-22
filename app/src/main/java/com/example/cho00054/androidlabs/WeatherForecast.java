@@ -31,6 +31,7 @@ public class WeatherForecast extends Activity {
     TextView currentTv;
     TextView minTv;
     TextView maxTv;
+    TextView windSpeedTv;
     ImageView iconTv;
     ProgressBar progressBarWeather;
 
@@ -45,6 +46,7 @@ public class WeatherForecast extends Activity {
         currentTv = (TextView) findViewById(R.id.textViewCurrentTemp);
         minTv = (TextView) findViewById(R.id.textViewMinTemp);
         maxTv = (TextView) findViewById(R.id.textViewMaxTemp);
+        windSpeedTv = (TextView) findViewById(R.id.textViewWindSpeed);
         iconTv =(ImageView) findViewById(R.id.imageViewWeather);
 
         ForecastQuery fq = new ForecastQuery();
@@ -52,7 +54,7 @@ public class WeatherForecast extends Activity {
     }
 
     private class ForecastQuery extends AsyncTask<String, Integer, String> {
-        String minTemp, maxTemp, currentTemp = null; //???
+        String windSpeed, minTemp, maxTemp, currentTemp = null; //???
         Bitmap weatherIconBm = null; // picture for the current weather
 
         @Override
@@ -71,8 +73,6 @@ public class WeatherForecast extends Activity {
                         if (eventType == XmlPullParser.START_TAG) {
                             String tagName = xpp.getName();
                             if (tagName.equals("temperature")) {
-                                //??? you must the get the value, min, and max parameters and save the text
-                                //???? the attributes you are looking for are “speed”,“value”, “min”, “max”.
                                 currentTemp = xpp.getAttributeValue(null, "value");
                                 publishProgress(25);
                                 Thread.sleep(200);
@@ -82,6 +82,9 @@ public class WeatherForecast extends Activity {
                                 maxTemp = xpp.getAttributeValue(null, "max");
                                 publishProgress(75);
                                 Thread.sleep(200);
+                            }
+                            if (tagName.equals("speed")) {
+                                windSpeed = xpp.getAttributeValue(null, "value");
                             }
                             if (tagName.equals("weather")) {
                                 String iconName = xpp.getAttributeValue(null, "icon");
@@ -139,6 +142,7 @@ public class WeatherForecast extends Activity {
             currentTv.setText("Current Temperature : " + currentTemp);
             minTv.setText("Minimum Temperature : " + minTemp);
             maxTv.setText("Maximum Temperature : " + maxTemp);
+            windSpeedTv.setText("Wind Speed : " + windSpeed);
             iconTv.setImageBitmap(weatherIconBm);
             progressBarWeather.setVisibility(View.INVISIBLE);
         }
