@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab6</string>
+    <string name="app_name">Lab7</string>
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\'m a button</string>
     <string name="LoginText">Log in</string>
@@ -20,5 +20,7 @@
     <string name="minTemperature">Min Temperature</string>
     <string name="maxTemperature">Max Temperature</string>
     <string name="windSpeed">Wind Speed</string>
-
+    <string name="deleteMessage">DELETE THIS MESSAGE</string>
+    <string name="chatMessage">Message Here</string>
+    <string name="chatID">ID = </string>
 </resources>

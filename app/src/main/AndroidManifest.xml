@@ -6,8 +6,8 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-    <uses-permission
-        android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <supports-screens android:requiresSmallestWidthDp="600" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,8 @@
         </activity>
         <activity android:name=".ListItemsActivity" />
         <activity android:name=".ChatWindow" />
-        <activity android:name=".WeatherForecast"></activity>
+        <activity android:name=".WeatherForecast" />
+        <activity android:name=".MessageDetails"></activity>
     </application>
 
 </manifest>
