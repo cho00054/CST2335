@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         Log.i(ACTIVITY_NAME, "In onCreate()");
-        Button button = findViewById(R.id.button);
+        Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
           }
         });
 
-        Button buttonChat = findViewById(R.id.buttonChat);
+        Button buttonChat = (Button)findViewById(R.id.buttonChat);
         buttonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button buttonWeather = findViewById(R.id.buttonWeatherForecast);
+        Button buttonWeather = (Button) findViewById(R.id.buttonWeatherForecast);
         buttonWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -28,12 +28,13 @@ public class ChatWindow extends Activity {
     protected ArrayList<String> chatMessages = new ArrayList<>();
     protected ArrayList<Long> chatID = new ArrayList<>();
     private Context ctx;
-    private SQLiteDatabase db;
+   // private SQLiteDatabase db;
     protected static final String ACTIVITY_NAME = "ChatWindow";
     boolean isTablet = false;
     Cursor results;
     ChatAdapter messageAdapter;
     protected int clickedPosition;
+    protected ChatDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +48,13 @@ public class ChatWindow extends Activity {
         Button sendButton = (Button) findViewById(R.id.sendButton);
         chatMessages = new ArrayList<>();
 
-        ChatDatabaseHelper dbHelper = new ChatDatabaseHelper(ctx);
-        db = dbHelper.getWritableDatabase();
+        dbHelper = new ChatDatabaseHelper(ctx);
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                results = db.query(false, ChatDatabaseHelper.TABLE_NAME,
-                new String[] { ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
-                ChatDatabaseHelper.KEY_MESSAGE + " not null", null,
-                null, null, null, null);
+        results = db.query(false, ChatDatabaseHelper.TABLE_NAME,
+        new String[] { ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
+        ChatDatabaseHelper.KEY_MESSAGE + " not null", null,
+        null, null, null, null);
 
         results.moveToFirst();
 
@@ -80,7 +81,7 @@ public class ChatWindow extends Activity {
             @Override
             public void onClick(View v) {
                 // add new chat String to ArrayList<String>'
-                EditText textInput = findViewById(R.id.chatViewText);
+                EditText textInput = (EditText) findViewById(R.id.chatViewText);
                 newData.put(ChatDatabaseHelper.KEY_MESSAGE, textInput.getText().toString());
                 Long newID =  db.insert(ChatDatabaseHelper.TABLE_NAME, "", newData);
                 chatID.add(newID);
@@ -96,7 +97,7 @@ public class ChatWindow extends Activity {
                 clickedPosition = position;
                 Bundle infoToPass = new Bundle();
                 infoToPass.putLong("ID", id);
-                infoToPass.putString("chatItemMessage", messageAdapter.getItem(position));
+                infoToPass.putString("chatItemMessage", chatMessages.get(position));
 
                 if(isTablet)
                 {
@@ -105,7 +106,7 @@ public class ChatWindow extends Activity {
                    mf.setIsTablet(true);
                    getFragmentManager().beginTransaction().replace(R.id.chatWindowframe, mf).commit();
                 } else {
-                   Intent next = new Intent(ChatWindow.this, MessageFragment.class);
+                   Intent next = new Intent(ChatWindow.this, MessageDetails.class);
                    next.putExtras(infoToPass);
                    startActivityForResult(next, 25);
                 }
@@ -116,7 +117,7 @@ public class ChatWindow extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        db.close();
+        dbHelper.close();
     }
 
     public void onActivityResult(int requestCode, int responseCode, Intent data)
@@ -128,6 +129,7 @@ public class ChatWindow extends Activity {
 
     public void deleteMessage(long id)
     {
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(ChatDatabaseHelper.TABLE_NAME, ChatDatabaseHelper.KEY_ID + " = ?" ,
                 new String[] { Long.toString(id) } );
         chatID.remove(clickedPosition);

@@ -59,7 +59,7 @@ public class WeatherForecast extends Activity {
 
         @Override
         protected String doInBackground(String ... args) {
-            for(String siteUrl: args) {
+            for (String siteUrl : args) {
                 try {
                     URL url = new URL(siteUrl);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -115,22 +115,13 @@ public class WeatherForecast extends Activity {
                         xpp.next();
                         eventType = xpp.getEventType();
                     }
-                } catch (MalformedURLException e) {
-                    Log.e("MalformedURLException:", e.getMessage());
-                } catch (FileNotFoundException e) {
-                    Log.e("FileNotFoundException:", e.getMessage());
-                } catch (IOException e) {
-                    Log.e("IOException:", e.getMessage());
-                } catch (XmlPullParserException e) {
-                    Log.e("XmlPullParserException:", e.getMessage());
-                } catch (InterruptedException e) {
-                    Log.e("XmlPullParserException:", e.getMessage());
+                } catch (Exception e) {
+                    Log.e("Exception:", e.getMessage());
                 }
             }
-
             return "Finished Downloading"; // how to return ????
-        }
-        //update the gui:
+      }
+
         public void onProgressUpdate(Integer ... args)
         {
             progressBarWeather.setProgress(args[0]);

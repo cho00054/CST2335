@@ -36,10 +36,16 @@ public class MessageFragment extends Fragment {
         }
 
         @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            parent = context;
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             //return super.onCreateView(inflater, container, savedInstanceState);
-            View gui = inflater.inflate(R.layout.message_details, null);
+            View gui = inflater.inflate(R.layout.activity_message_details, null);
             TextView tvID =(TextView) gui.findViewById(R.id.tvId);
             TextView tvMessage =(TextView) gui.findViewById(R.id.tvMessage);
             tvMessage.setText(chatMessage);

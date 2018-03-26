@@ -22,7 +22,7 @@ public class LoginActivity extends Activity {
         SharedPreferences prefs = getSharedPreferences("UserInput", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit(); //edit the file //????
         String defaultEmail = prefs.getString("DefaultEmail", "email@domain.com");
-        EditText editText = findViewById(R.id.loginEditText);
+        EditText editText = (EditText) findViewById(R.id.loginEditText);
         editText.setText(defaultEmail);
 
         Button button2 = (Button) findViewById(R.id.button2);

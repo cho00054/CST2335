@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class ListItemsActivity extends Activity {
         setContentView(R.layout.activity_list_items);
         Log.i(ACTIVITY_NAME, "In onCreate()");
 
-        ImageButton imageButton = findViewById(R.id.imageButton);
+        ImageButton imageButton = (ImageButton)findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +36,7 @@ public class ListItemsActivity extends Activity {
             }
         });
 
-        Switch switch1 = findViewById(R.id.switch1);
+        Switch switch1 = (Switch) findViewById(R.id.switch1);
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -54,7 +55,7 @@ public class ListItemsActivity extends Activity {
            }
         });
 
-        CheckBox checkBox = findViewById(R.id.checkBox1);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
