@@ -9,6 +9,9 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/ic_launcher_foreground"/>
+        //tools:layout_editor_absoluteX="92dp"
+        //tools:layout_editor_absoluteY="35dp"
+        app:layout_constraintTop_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/textViewCurrentTemp"
@@ -16,6 +19,10 @@
         android:layout_height="wrap_content"
         android:text="@string/currentTemperature"
         android:gravity="right"/>
+        //tools:layout_editor_absoluteX="170dp"
+        //tools:layout_editor_absoluteY="260dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWeather"
+        />
 
     <TextView
         android:id="@+id/textViewMinTemp"
@@ -23,6 +30,9 @@
         android:layout_height="wrap_content"
         android:text="@string/minTemperature"
         android:gravity="right"/>
+        //tools:layout_editor_absoluteX="170dp"
+        //tools:layout_editor_absoluteY="280dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentTemp"/>
 
     <TextView
         android:id="@+id/textViewMaxTemp"
@@ -30,13 +40,9 @@
         android:layout_height="wrap_content"
         android:text="@string/maxTemperature"
         android:gravity="right"/>
-
-    <TextView
-        android:id="@+id/textViewWindSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/windSpeed"
-        android:gravity="right"/>
+        //tools:layout_editor_absoluteX="170dp"
+        //tools:layout_editor_absoluteY="300dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMinTemp"/>
 
     <ProgressBar
         android:id="@+id/progressBarWeather"
@@ -44,5 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
+        //tools:layout_editor_absoluteX="180dp"
+        //tools:layout_editor_absoluteY="335dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMaxTemp"/>
 
 </LinearLayout>
