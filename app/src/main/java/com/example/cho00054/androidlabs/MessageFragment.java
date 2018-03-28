@@ -20,16 +20,17 @@ import com.example.cho00054.androidlabs.R;
 
 public class MessageFragment extends Fragment {
 
-        Context parent;
+
         String chatMessage;
-        ChatWindow cw;
+        Context cw;
         Long id;
         boolean isTablet = false;
+
 
         public void onCreate(Bundle b)
         {
             super.onCreate(b);
-            cw = new ChatWindow();
+
             Bundle getInfo = getArguments();
             chatMessage = getInfo.getString("chatItemMessage");
             id = getInfo.getLong("ID");
@@ -38,7 +39,7 @@ public class MessageFragment extends Fragment {
         @Override
         public void onAttach(Context context) {
             super.onAttach(context);
-            parent = context;
+            cw = context;
         }
 
         @Override
@@ -56,7 +57,7 @@ public class MessageFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if(isTablet){
-                        cw.deleteMessage(id);
+                        ((ChatWindow)cw).deleteMessage(id);
                         tvMessage.setText("");
                         tvID.setText("");
 

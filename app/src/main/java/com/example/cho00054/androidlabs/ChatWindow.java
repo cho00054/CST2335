@@ -117,7 +117,7 @@ public class ChatWindow extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbHelper.close();
+       //dbHelper.close();
     }
 
     public void onActivityResult(int requestCode, int responseCode, Intent data)
@@ -173,9 +173,10 @@ public class ChatWindow extends Activity {
 
         public long getItemId(int position)
         {
-            results.moveToPosition(position);
+            /*results.moveToPosition(position);
             Long itemID = results.getLong(results.getColumnIndex(ChatDatabaseHelper.KEY_ID)); //??
-            return itemID;
+            return itemID;*/
+            return chatID.get(position);
         }
     }
 }
